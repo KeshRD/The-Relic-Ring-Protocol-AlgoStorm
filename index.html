@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relic Ring Protocol - Dashboard</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background-color: #0d1117; color: #c9d1d9; padding: 20px; }
+        h1 { color: #58a6ff; text-align: center; }
+        .container { max-width: 800px; margin: auto; background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid #30363d; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #8b949e; }
+        input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; background: #0d1117; color: #c9d1d9; border: 1px solid #30363d; border-radius: 4px; }
+        button { background-color: #238636; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
+        button:hover { background-color: #2ea043; }
+        #results { margin-top: 20px; display: none; }
+        .hop-card { background: #0d1117; border: 1px solid #30363d; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #a371f7; }
+        .highlight { color: #58a6ff; font-weight: bold; }
+        .latency { color: #f85149; }
+        .codex-stream { background: #1f2428; padding: 5px; border-radius: 3px; font-size: 14px; word-wrap: break-word; color: #3fb950; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Zeta-26 Relic Ring Protocol</h1>
+        
+        <div class="form-group">
+            <label>Origin Planet ID (e.g., Aegis):</label>
+            <input type="text" id="origin" value="Aegis">
+        </div>
+        <div class="form-group">
+            <label>Destination Planet ID (e.g., Caelum):</label>
+            <input type="text" id="destination" value="Caelum">
+        </div>
+        <div class="form-group">
+            <label>Payload Message:</label>
+            <input type="text" id="payload" value="Hello world">
+        </div>
+        <div class="form-group">
+            <label>Dead Zones (Optional - comma separated, e.g., Boreas):</label>
+            <input type="text" id="dead_zones" placeholder="Leave empty if none">
+        </div>
+        
+        <button onclick="calculateRoute()">Transmit Packet</button>
+
+        <div id="results">
+            <h3 style="color: #3fb950;">[ Transmission Successful ]</h3>
+            <p><strong>Total Route Latency:</strong> <span class="latency" id="total_latency"></span> ms</p>
+            
+            <h4>Hop Log (Latency & Codex Translation Breakdown):</h4>
+            <div id="hop_logs"></div>
+        </div>
+    </div>
+
+    <script>
+        async function calculateRoute() {
+            const origin = document.getElementById('origin').value;
+            const dest = document.getElementById('destination').value;
+            const payload = document.getElementById('payload').value;
+            const deadZones = document.getElementById('dead_zones').value;
+
+            let url = `http://127.0.0.1:8000/route?origin=${origin}&destination=${dest}&payload=${payload}`;
+            if (deadZones) url += `&dead_zones=${deadZones}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.status === "error" || data.status === "undeliverable") {
+                    alert("Error: " + (data.message || data.detail));
+                    return;
+                }
+
+                document.getElementById('results').style.display = 'block';
+                document.getElementById('total_latency').innerText = data.total_route_latency_ms;
+
+                const logsContainer = document.getElementById('hop_logs');
+                logsContainer.innerHTML = ''; // Clear old logs
+
+                data.packet_schema.hop_log.forEach((hop, index) => {
+                    const hopDiv = document.createElement('div');
+                    hopDiv.className = 'hop-card';
+                    hopDiv.innerHTML = `
+                        <p><strong>Hop ${index + 1}:</strong> <span class="highlight">${hop.from_node}</span> ➔ <span class="highlight">${hop.to_node}</span></p>
+                        <p><strong>Towers:</strong> Transmit: ${hop.tx_tower} | Receive: ${hop.rx_tower}</p>
+                        <p><strong>Latency:</strong> Crust (Tp): ${hop.crust_latency_ms} ms | Void (Tv): ${hop.void_latency_ms} ms</p>
+                        <p><strong>Next Hop Codex (Base ${hop.next_hop_codex}):</strong></p>
+                        <p class="codex-stream">[ ${hop.serialized_transmission_stream.join(', ')} ]</p>
+                    `;
+                    logsContainer.appendChild(hopDiv);
+                });
+            } catch (error) {
+                alert("Failed to connect to API. Is FastAPI running on port 8000?");
+            }
+        }
+    </script>
+</body>
+</html>
