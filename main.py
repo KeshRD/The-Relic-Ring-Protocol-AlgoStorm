@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# JSON Config එක load කිරීම
+# JSON Config load(They mentioned that not to hardcod so we are loading the universe data from a JSON file)
 with open('universe-config.json', 'r') as f:
     universe_data = json.load(f)
 
@@ -37,11 +37,11 @@ def get_route(
     if origin not in nodes_map or destination not in nodes_map:
         raise HTTPException(status_code=400, detail="Invalid origin or destination ID")
         
-    # Dijkstra හරහා කෙටිම පාර සෙවීම
+    # Find the shortest path with Djkstra
     result = find_shortest_path(origin, destination, universe_data, dead_nodes)
     
     if result is None:
-        return {"status": "undeliverable", "message": "No route could bridge the gap."}
+        return {"status": "undeliverable", "message": "No route could bridge the gap :( "}
         
     formatted_hop_log = []
     current_message = payload
@@ -50,7 +50,7 @@ def get_route(
         next_node = nodes_map[hop["to"]]
         next_codex = next_node["codex"]
         
-        # Next Hop Codex එකට හැරවීම
+        # turn next hop to Codex
         hop_encoded_payload = encode_payload_for_hop(current_message, next_codex)
         
         formatted_hop = {
@@ -67,7 +67,7 @@ def get_route(
         }
         formatted_hop_log.append(formatted_hop)
 
-    # අවසාන Packet Schema එක
+    # Final Packet schema
     return {
         "status": "success",
         "packet_schema": {

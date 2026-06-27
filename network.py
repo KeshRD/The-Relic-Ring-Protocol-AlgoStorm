@@ -84,7 +84,7 @@ def find_shortest_path(start_id, end_id, universe_data, dead_nodes=None):
     fiber_fraction = metadata['fiber_speed_fraction']
     tower_delay_ms = metadata['tower_processing_delay_ms']
     
-    # පෝලිමට දාද්දි අන්තිමට (None) කියලා එකතු කරා, ඒකෙන් කලින් ග්‍රහලෝකෙන් බාරගත්ත ටවර් (prev_rx_tower) එක මතක තියාගන්නවා
+    # added None.it remeber prev_rx_tower for next hop crust latency calculation
     queue = [(0.0, start_id, [start_id], [], None)] 
     distances = {n['id']: float('inf') for n in universe_data['nodes']}
     distances[start_id] = 0.0
@@ -119,7 +119,7 @@ def find_shortest_path(start_id, end_id, universe_data, dead_nodes=None):
             
             tx_tower, rx_tower = find_closest_towers(curr_node, neighbor_node, scale_unit)
             
-            # මෙන්න මෙතන තමයි වෙනස! කලින් ටවර් එකක් තියෙනවා නම් ඒක Entry Tower එක වෙනවා.
+            # this is the change.if previouse toewer  there it become entry tower for next hop crust latency calculation
             entry_tower = prev_rx_tower if prev_rx_tower is not None else tx_tower
                 
             T_p = calculate_crust_latency(curr_node, entry_tower, tx_tower, speed_of_light, fiber_fraction, tower_delay_ms)
@@ -139,7 +139,7 @@ def find_shortest_path(start_id, end_id, universe_data, dead_nodes=None):
                     "void_latency_ms": T_v
                 }
                 
-                # ඊළඟ වටේට යද්දී rx_tower එක prev_rx_tower විදිහට පාස් කරනවා
+                # when go to next round pass  rx_tower to prev_rx_tower 
                 heapq.heappush(queue, (new_latency, neigh_id, path + [neigh_id], logs + [hop_log_entry], rx_tower))
                 
     return None
@@ -166,3 +166,4 @@ def encode_payload_for_hop(payload: str, next_codex: int) -> list:
         base_val = int_to_base(ascii_val, next_codex)
         encoded_list.append(base_val)
     return encoded_list
+#he he :)
