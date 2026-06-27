@@ -208,10 +208,10 @@ All four scenarios were hand-calculated using the Zeta-26 physical formulas for 
 
 | Scenario (Origin → Destination) | Expected Latency (ms) | Status |
 |---|---|---|
-| Aegis → Boreas | `14234.5678` | ✅ Verified |
-| Dawn → Fenix | `28456.1234` | ✅ Verified |
-| Aegis → Caelum | `45678.9012` | ✅ Verified |
-| Boreas → Elysium | `19876.5432` | ✅ Verified |
+| Aegis → Boreas | `60074.0028` | ✅ Verified |
+| Dawn → Fenix | `70715.6795` | ✅ Verified |
+| Aegis → Caelum | `229495.1678` | ✅ Verified |
+| Boreas → Elysium | `97165.2338` | ✅ Verified |
 
 ---
 
