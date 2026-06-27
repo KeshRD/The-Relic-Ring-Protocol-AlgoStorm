@@ -1,109 +1,218 @@
-# Zeta-26: The Relic Ring Protocol
+<div align="center">
 
-**Organized by the IEEE Computer Society Student Branch Chapter — University of Kelaniya**
-**Submitted for LAUNCH26**
+<br />
+
+```
+███████╗███████╗████████╗ █████╗       ██████╗  ██████╗
+╚══███╔╝██╔════╝╚══██╔══╝██╔══██╗      ╚════██╗ ██╔════╝
+  ███╔╝ █████╗     ██║   ███████║       █████╔╝ ███████╗
+ ███╔╝  ██╔══╝     ██║   ██╔══██║      ██╔═══╝  ██╔═══██╗
+███████╗███████╗   ██║   ██║  ██║      ███████╗ ╚██████╔╝
+╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝      ╚══════╝  ╚═════╝
+```
+
+# ⬡ THE RELIC RING PROTOCOL
+
+**Reconnecting the Fractured Star System — One Hop at a Time**
+
+<br />
+
+[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Algorithm](https://img.shields.io/badge/Algorithm-Dijkstra's-FF6B35?style=for-the-badge)](#)
+[![Status](https://img.shields.io/badge/Status-Online-00FF88?style=for-the-badge)](#)
+
+<br />
+
+> *"When the relics fail, the ring must hold."*
+
+<br />
+
+**Organized by the IEEE Computer Society Student Branch — University of Kelaniya**
+Submitted for **LAUNCH26**
+
+<br />
 
 ---
 
-## Table of Contents
+</div>
 
-- [Executive Summary](#executive-summary)
-- [Technical Implementation Details](#technical-implementation-details)
-  - [1. Shortest-Path & Resilience (Dijkstra's Algorithm)](#1-shortest-path--resilience-dijkstras-algorithm)
-  - [2. Mathematical Modeling & Latency Breakdown](#2-mathematical-modeling--latency-breakdown)
-  - [3. Data Translation & Encoding (Codex Conversion)](#3-data-translation--encoding-codex-conversion)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Setup & Running Instructions](#setup--running-instructions)
-  - [Prerequisites](#prerequisites)
-  - [1. Install Dependencies](#1-install-dependencies)
-  - [2. Start the Backend Server](#2-start-the-backend-server)
-  - [3. Open the Dashboard](#3-open-the-dashboard)
+## ◈ Team AlgoStrom
 
----
-
-## Executive Summary
-
-This project implements a ruthlessly efficient network routing simulation designed to reconnect the fractured Zeta-26 star system using primitive, legacy infrastructure — underground fiber cables and laser transceivers. The system calculates exact latency based on physical parameters, dynamically translates payload dialects, and instantly routes around dead zones in real time.
-
----
-
-## Technical Implementation Details
-
-### 1. Shortest-Path & Resilience (Dijkstra's Algorithm)
-
-- **Algorithm:** Implements Dijkstra's algorithm with a priority queue (min-heap) to guarantee the lowest end-to-end latency path between any two nodes.
-- **Dynamic Rerouting (Chaos Test):** The core routing loop accepts a list of "dead zones." Nodes or links marked as failed are completely isolated from graph traversal during real-time queries, without disrupting active data flows.
-- **Wireless Signal Threshold ($L_{max}$):** Any void hop exceeding `50,000,000 km` is instantly discarded as a valid edge, forcing the algorithm to find a multi-hop traversal via intermediate worlds.
-
-### 2. Mathematical Modeling & Latency Breakdown
-
-All formulas strictly adhere to the physical laws of the Zeta-26 system:
-
-| Component | Description |
+| Member | Role |
 |---|---|
-| **Void Distance ($L$)** | Computed center-to-center, minus atmospheric shells and planetary radii. |
-| **Void Travel Time ($T_v$)** | Factored with atmospheric refraction indexes ($n$) and the speed of light ($C$). |
-| **Internal Crust Transit Time ($T_p$)** | Calculates the shortest fiber-arc distance between the receiving tower and sending tower on any given relay node, adding precise processing penalties ($m \times \Delta t$). |
-
-### 3. Data Translation & Encoding (Codex Conversion)
-
-To prevent data loss across incompatible planetary dialects, raw payloads undergo dynamic ASCII-to-Base translation:
-
-- Text characters are split into standard ASCII bytes.
-- Bytes are serialized into the corresponding target base layout (Base 5, 6, 14, 16, etc.).
-- The result is presented as a flat transmission stream inside the logs.
+| **Ishakya Ranhiru** | Lead Engineer |
+| **Hasini Lawanya** | Systems Architect |
+| **Weenuka Rajapakshe** | Algorithm Design |
+| **Januli Wansandi** | Frontend & UX |
+| **Keshana Roshaka** | Data & Protocol |
 
 ---
 
-## Technology Stack
+## ◈ What Is This?
 
-| Layer | Technologies |
-|---|---|
-| **Backend** | Python 3, FastAPI (highly scalable, typed JSON parsing) |
-| **Frontend** | Plain HTML5, CSS3 (Cyberpunk/Terminal UI), JavaScript (Async Fetch API) |
+Zeta-26's star system is fractured. Underground fiber cables corrode. Laser transceivers flicker. Relay towers on distant worlds go dark without warning.
+
+**The Relic Ring Protocol** is a ruthlessly efficient network routing simulation that rebuilds those connections — calculating exact signal latency from physical parameters, dynamically rerouting around dead nodes in real time, and translating incompatible planetary data dialects at every hop.
+
+**No approximations. No shortcuts. Just physics.**
 
 ---
 
-## Project Structure
+## ◈ Core Capabilities
 
-```text
-Launch26-Project/
-│
-├── main.py                # Primary FastAPI application & REST endpoints
-├── network.py             # Latency calculations, Dijkstra logic & Codex helpers
-├── universe-config.json   # Input configuration containing metadata and node schemas
-├── index.html             # Visualization and interactive User Interface dashboard
-└── README.md              # Technical documentation (this file)
+### 🔷 Shortest-Path Routing · Dijkstra's Algorithm
+
+The routing engine implements Dijkstra's algorithm backed by a **priority queue (min-heap)**, guaranteeing the absolute lowest end-to-end latency path between any two nodes — inclusive of destination processing delays.
+
+```
+Origin ──[T_v]──► Relay Node ──[T_v]──► Relay Node ──► Destination
+              ↕ [T_a]              ↕ [T_a]
+           Atmosphere           Atmosphere
+              ↕ [T_f]              ↕ [T_f]
+           Fiber Arc            Fiber Arc
+```
+
+**Wireless Signal Threshold `L_max`:** Any void hop exceeding **50,000,000 km** is immediately discarded, forcing multi-hop traversal through intermediate worlds.
+
+---
+
+### 🔷 Dynamic Fault Isolation · Chaos Test Mode
+
+Dead nodes and broken links are fed to the routing loop as **"dead zones"** and **"dead links"**. Failed elements are fully isolated from graph traversal during live queries — without disrupting active data flows.
+
+```
+ [Node A] ─────────────────── [Node B]
+     │         VOID HOP           │
+     │     ~~~~LINK DEAD~~~~       │
+     │                             │
+     └──── [Node C] ──────────────┘
+              ↑ REROUTED
 ```
 
 ---
 
-## Setup & Running Instructions
+### 🔷 High-Resolution Latency Breakdown
+
+Every path computation resolves into **four strict physical components:**
+
+| Symbol | Component | Description |
+|---|---|---|
+| **T_v** | Vacuum Void Travel | Center-to-center distance, minus atmospheric shells, divided by `C` (speed of light) |
+| **T_a** | Atmospheric Refraction | Laser penetration factored with planetary atmospheric indices `n` |
+| **T_f** | Subsurface Fiber Transit | Shortest fiber-arc distance between the receiving and sending towers |
+| **T_p** | Tower Processing Delay | Per-tower processing penalty `m × Δt` applied at every routing hop |
+
+> All formulas adhere strictly to the physical laws governing the Zeta-26 system, with dynamic fallback defaults for incomplete node configurations.
+
+---
+
+### 🔷 Codex Translation · Planetary Dialect Encoding
+
+Raw payloads are transformed at **every single hop** to prevent data loss across incompatible planetary dialects.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  PLANET A (Base 5)  →  ASCII Bridge  →  PLANET B (Base 14)  │
+│                                                         │
+│  Incoming stream decoded locally from previous codex.   │
+│  Re-encoded into destination planet's native base       │
+│  before crossing the void.                              │
+│                                                         │
+│  Result serialized into JSON hop logs per transmission. │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## ◈ Technology Stack
+
+| Layer | Technology | Why |
+|---|---|---|
+| **Backend** | Python 3 + FastAPI | Highly scalable, typed JSON parsing, dynamic schema enforcement |
+| **Frontend** | HTML5 + CSS3 + JS | Cyberpunk/Tactical Terminal UI, zero framework dependencies |
+| **Routing** | Dijkstra's (min-heap) | Optimal path guarantee with O((V + E) log V) complexity |
+| **Config** | JSON Schema | Human-readable universe definitions; hot-swappable node configs |
+
+---
+
+## ◈ Project Structure
+
+```
+Launch26-Project/
+│
+├── main.py                 ← FastAPI application & REST endpoints
+├── network.py              ← Latency engine, Dijkstra logic & Codex translation
+├── universe-config.json    ← Node metadata, system topology & physical parameters
+├── index.html              ← Tactical dashboard UI
+└── README.md               ← You are here
+```
+
+---
+
+## ◈ Setup & Running
 
 ### Prerequisites
 
-Make sure you have **Python 3.8+** installed on your system.
+- Python **3.8+** installed on your system
 
-### 1. Install Dependencies
-
-Open your terminal in the project directory and execute:
+### Step 1 — Install Dependencies
 
 ```bash
 pip install fastapi uvicorn
 ```
 
-### 2. Start the Backend Server
-
-Run the Uvicorn live-reload server:
+### Step 2 — Start the Backend Server
 
 ```bash
 uvicorn main:app --reload
 ```
 
-The API will spin up and become accessible at `http://127.0.0.1:8000`.
+> API is now live at **`http://127.0.0.1:8000`**
 
-### 3. Open the Dashboard
+### Step 3 — Open the Dashboard
 
-- Navigate to your workspace folder and double-click `index.html` to open it in any modern web browser.
-- Input your **Origin**, **Destination**, and **Payload**, and test failures in real time.
+Navigate to the project folder and open **`index.html`** in any modern browser.
+
+---
+
+## ◈ Using the Dashboard
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  RELIC RING PROTOCOL — TACTICAL CONSOLE                      │
+├──────────────────────────────────────────────────────────────┤
+│  Origin Node        [ PLANET AVAR-7         ▼ ]             │
+│  Destination Node   [ RELAY STATION KETH-3  ▼ ]             │
+│  Payload            [ TRANSMISSION DATA...    ]             │
+├──────────────────────────────────────────────────────────────┤
+│  ☠ Dead Zones       [ NODE_ID_1, NODE_ID_2    ]             │
+│  ✂ Dead Links       [ LINK_ID_A, LINK_ID_B    ]             │
+│                                                              │
+│  [ INITIATE ROUTE ]                [ CHAOS TEST MODE ]      │
+└──────────────────────────────────────────────────────────────┘
+```
+
+1. Set **Origin** and **Destination** nodes
+2. Enter the **Payload** to transmit
+3. Optionally inject **Dead Zones** or **Dead Links** to trigger dynamic rerouting
+4. Hit **Initiate Route** — watch the Relic Ring hold
+
+---
+
+<div align="center">
+
+<br />
+
+```
+  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+  ▓   ZETA-26 NETWORK · SIGNAL RESTORED   ▓
+  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+```
+
+**IEEE Computer Society Student Branch · University of Kelaniya**
+*LAUNCH26 Submission · Team AlgoStrom*
+
+<br />
+
+</div>
