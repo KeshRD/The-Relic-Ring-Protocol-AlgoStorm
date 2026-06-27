@@ -41,11 +41,11 @@ Submitted for **LAUNCH26**
 
 | Member | Role |
 |---|---|
-| **Ishakya Ranhiru** | Lead Engineer |
-| **Hasini Lawanya** | Systems Architect |
-| **Weenuka Rajapakshe** | Algorithm Design |
-| **Januli Wansandi** | Frontend & UX |
-| **Keshana Roshaka** | Data & Protocol |
+| **Ishakya Ranhiru** | Leader |
+| **Hasini Lawanya** | 
+| **Weenuka Rajapakshe** | 
+| **Januli Wansandi** | 
+| **Keshana Roshaka** | 
 
 ---
 
