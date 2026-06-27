@@ -13,8 +13,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# JSON Config load(They mentioned that not to hardcod so we are loading the universe data from a JSON file):)
-with open('universe-config.json', 'r') as f:
+import os
+
+# JSON Config load
+config_file = os.environ.get('UNIVERSE_CONFIG', 'universe-config.json')
+with open(config_file, 'r') as f:
     universe_data = json.load(f)
 
 @app.get("/")
@@ -37,7 +40,6 @@ def get_route(
     if origin not in nodes_map or destination not in nodes_map:
         raise HTTPException(status_code=400, detail="Invalid origin or destination ID")
         
-    # Find the shortest path with Djkstra
     result = find_shortest_path(origin, destination, universe_data, dead_nodes)
     
     if result is None:
@@ -50,7 +52,6 @@ def get_route(
         next_node = nodes_map[hop["to"]]
         next_codex = next_node["codex"]
         
-        # turn next hop to Codex
         hop_encoded_payload = encode_payload_for_hop(current_message, next_codex)
         
         formatted_hop = {
@@ -58,6 +59,8 @@ def get_route(
             "to_node": hop["to"],
             "tx_tower": hop["tx_tower"],
             "rx_tower": hop["rx_tower"],
+            "exit_tower": hop["tx_tower"],
+            "entry_tower": hop["rx_tower"],
             "void_distance_km": round(hop["void_distance_km"], 2),
             "crust_latency_ms": round(hop["crust_latency_ms"], 4),
             "void_latency_ms": round(hop["void_latency_ms"], 4),
@@ -67,7 +70,6 @@ def get_route(
         }
         formatted_hop_log.append(formatted_hop)
 
-    # Final Packet schema
     return {
         "status": "success",
         "packet_schema": {
@@ -75,7 +77,8 @@ def get_route(
             "destination_id": destination,
             "current_id": origin,
             "raw_payload": payload,
-            "hop_log": formatted_hop_log
+            "hop_log": formatted_hop_log,
+            "node_tower_schema": result.get("node_tower_schema", [])
         },
         "total_route_latency_ms": round(result["total_latency_ms"], 4)
     }
