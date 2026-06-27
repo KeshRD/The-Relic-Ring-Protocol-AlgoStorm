@@ -39,9 +39,9 @@ Submitted for **LAUNCH26**
 
 ## ◈ Team AlgoStrom
 
-| Member | Role |
-|---|---|
-| **Ishakya Ranhiru** | Leader |
+
+
+| **Ishakya Ranhiru** |
 | **Hasini Lawanya** | 
 | **Weenuka Rajapakshe** | 
 | **Januli Wansandi** | 
