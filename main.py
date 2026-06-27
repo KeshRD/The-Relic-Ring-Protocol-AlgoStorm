@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# JSON Config load(They mentioned that not to hardcod so we are loading the universe data from a JSON file)
+# JSON Config load(They mentioned that not to hardcod so we are loading the universe data from a JSON file):)
 with open('universe-config.json', 'r') as f:
     universe_data = json.load(f)
 
